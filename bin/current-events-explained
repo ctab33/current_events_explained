@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/current_events_explained'
+
+CurrentEventsExplained::CLI.new.call
