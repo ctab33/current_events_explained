@@ -1,47 +1,56 @@
-attr_accessor :title, :url, :author, :date
+class CurrentEventsExplained::Articles
 
-@@all = []
+  attr_accessor :title, :url, :author, :date, :twitter_handle
 
-def initialize(title = nil, url = nil, author = nil, date = nil)
-  @title = title
-  @url = url
-  @author = author
-  @date = date
-  @@all << self
-end
+  @@all = []
 
-def self.all
-#  @@all ||= scrape_explainer
-  @@all
-end
+  def initialize(title = nil, url = nil)
+    @title = title
+    @url = url
+    #@@all << self
+    @@all << make_articles
+  end
 
-# def title
-#   @title ||= doc.xpath('//div')
-# end
+  def self.all
+    @@all
+  end
 
+  def self.find(number)
+    self.all[number - 1]
+  end
 
-  def self.scrape_explainer
-    doc = Nokogiri::HTML(open('https://www.vox.com/explainers'))
-    articles = doc.search("h2[class='c-entry-box--compact__title'] a[data-analytics-link='article']")
-    #binding.pry
-    articles.map{|article| new(article.text.strip, "https://www.vox.com#{article.attr("href").strip}")}
-    #doc.xpath('//div[@id="block"]/a/@href')
-    #article = self.new
-    #article.title = doc.search("h2.c-entry-box--compact__title").text.strip
+  #Scraping
+  def get_page
+      doc = Nokogiri::HTML(open("https://www.vox.com/explainers"))
+  end
 
-    #article.url = doc.search("a[data-analytics-link='article']").strip
+  def get_articles
+      self.get_page.css(".c-entry-box--compact__title")
+  end
 
+  def make_articles
+    self.get_articles.each do |article|
+      articles = Articles.new
+      articles.title = article.children[0].children.text
+      article.url = article.children[0].attribute("href").value
+    end
   end
 
 
+  def doc
+    @doc ||= Nokogiri::HTML(open(self.url))
+  end
 
+  def author
+    @author ||= doc.search()
+  end
 
+  def date
+    @date ||= doc.search()
+  end
 
+  def twitter_handle
+    @twitter_handle ||= doc.search()
+  end
 
 end
-
-
-#The scaper should tenatively do the following
-# 1. Iterate over the articles
-# 2. Return a numbered array with title, author, date, and url. Use flatten?
-# 3.
