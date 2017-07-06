@@ -2,17 +2,17 @@ class CurrentEventsExplained::Articles
 
   attr_accessor :title, :url, :author, :date, :twitter_handle
 
-  @@all = []
+  #@@all = []
 
   def initialize(title = nil, url = nil)
     @title = title
     @url = url
     #@@all << self
-    @@all << make_articles
+    #@@all << make_articles
   end
 
   def self.all
-    @@all
+      @@all ||= scrape_explainer
   end
 
   def self.find(number)
@@ -28,14 +28,17 @@ class CurrentEventsExplained::Articles
       self.get_page.css(".c-entry-box--compact__title")
   end
 
-  def self.scrape_explainer
-    self.get_articles.each do |article|
-      articles = Articles.new
-      articles.title = article.children[0].children.text
-      article.url = article.children[0].attribute("href").value
-    end
-  end
+  # def self.scrape_explainer
+  #   self.get_articles.each do |article|
+  #     articles = Articles.new
+  #     articles.title = article.children[0].children.text
+  #     article.url = article.children[0].attribute("href").value
+  #   end
+  # end
 
+  def self.scrape_explainer
+    get_articles.collect {|a| new(a.children[0].children.text, a.children[0].attribute("href").value)}
+  end
 
 
   def doc
