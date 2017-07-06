@@ -40,21 +40,22 @@ class CurrentEventsExplained::Articles
     get_articles.collect {|a| new(a.children[0].children.text, a.children[0].attribute("href").value)}
   end
 
-
+ #url, author, and twitter_handle
   def doc
     @doc ||= Nokogiri::HTML(open(self.url))
   end
 
   def author
-    @author ||= doc.search()
+    @author ||= doc.xpath("//span[@class='c-byline__item']").text
   end
 
   def date
-    @date ||= doc.search()
+    @date ||= doc.xpath("//time[@class='c-byline__item']").text
   end
 
   def twitter_handle
-    @twitter_handle ||= doc.search()
+    @twitter_handle ||= doc.xpath("//a[@class='c-byline__twitter-handle']").text
+    #<a class="c-byline__twitter-handle" href="http://www.twitter.com/AlexWardVox">@AlexWardVox</a>
   end
 
 end
