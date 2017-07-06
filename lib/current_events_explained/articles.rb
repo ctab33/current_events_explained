@@ -28,13 +28,14 @@ class CurrentEventsExplained::Articles
       self.get_page.css(".c-entry-box--compact__title")
   end
 
-  def make_articles
+  def self.scrape_explainer
     self.get_articles.each do |article|
       articles = Articles.new
       articles.title = article.children[0].children.text
       article.url = article.children[0].attribute("href").value
     end
   end
+
 
 
   def doc
