@@ -27,21 +27,23 @@ class CurrentEventsExplained::Articles
   end
 
  #url, author, and twitter_handle
-  # def doc
-  #   @doc ||= Nokogiri::HTML(open(self.url))
-  # end
-  #
-  # def author
-  #   @author ||= doc.xpath("//a[@class='c-byline__item']").text
-  # end
-  #
-  # def date
-  #   @date ||= doc.xpath("//time[@class='c-byline__item']").text
-  # end
-  #
-  # def twitter_handle
-  #   @twitter_handle ||= doc.xpath("//a[@class='c-byline__twitter-handle']").text
-  #   #<a class="c-byline__twitter-handle" href="http://www.twitter.com/AlexWardVox">@AlexWardVox</a>
-  # end
+  def doc
+    @doc ||= Nokogiri::HTML(open(self.url))
+  end
+
+  def author
+    #author ||= doc.xpath("//a[@class='c-byline__item']").text
+    @author ||= doc.xpath("//span[@class='c-byline__item']/a[1]").text
+      #best_dish ||= doc.xpath("//div[@class='c-4 nr nt']/ul[3]/li").text
+  end
+
+  def date
+    @date ||= doc.xpath("//time[@class='c-byline__item']").text
+  end
+
+  def twitter_handle
+    @twitter_handle ||= doc.xpath("//a[@class='c-byline__twitter-handle']").text
+    #<a class="c-byline__twitter-handle" href="http://www.twitter.com/AlexWardVox">@AlexWardVox</a>
+  end
 
 end
