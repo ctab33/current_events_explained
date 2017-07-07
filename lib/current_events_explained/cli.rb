@@ -57,7 +57,7 @@ class CurrentEventsExplained::CLI
       puts "Date and time of publication: #{articles.date_time}"
       puts ""
       puts "Link: #{articles.url}"
-
-      #puts "#{articles.intro}"
+      puts ""
+      puts "Introduction: #{articles.intro}"
     end
 end

@@ -1,6 +1,6 @@
 class CurrentEventsExplained::Articles
 
-  attr_accessor :title, :url, :author, :date_time, :twitter_handle
+  attr_accessor :title, :url, :author, :date_time, :twitter_handle, :intro
 
 
 
@@ -39,6 +39,10 @@ class CurrentEventsExplained::Articles
 
   def twitter_handle
     @twitter_handle ||= doc.xpath("//a[@class='c-byline__twitter-handle']").text
+  end
+
+  def intro
+    @intro ||= doc.xpath("//div[@class='c-entry-content']/p[1]").text 
   end
 
 end
