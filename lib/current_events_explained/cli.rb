@@ -30,7 +30,17 @@ class CurrentEventsExplained::CLI
       elsif input.to_i > 0
         if articles = CurrentEventsExplained::Articles.find(input.to_i)
           article_details(articles)
-        end
+          2.times {puts ""}
+          puts "Would you like to choose another article? Enter Y or N."
+          input = gets.strip.downcase
+          if input == "y"
+            explainer_list
+          else
+            puts ""
+            puts "Thanks for stopping by!"
+            exit
+          end
+         end
       else
         exit
       end
@@ -38,10 +48,15 @@ class CurrentEventsExplained::CLI
 
     def article_details(articles)
       puts ""
-      puts "________________#{articles.title}________________"
+      puts "#{articles.title}"
+      puts ""
       puts "Written by: #{articles.author}"
-      puts "Author's Twitter Handle:  #{articles.twitter_handle}"
-      puts "Link:   #{articles.url}"
+      puts ""
+      puts "Author's Twitter handle (if provided):  #{articles.twitter_handle}"
+      puts ""
+      puts "Date and time of publication: #{articles.date_time}"
+      puts ""
+      puts "Link: #{articles.url}"
 
       #puts "#{articles.intro}"
     end

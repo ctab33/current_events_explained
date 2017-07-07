@@ -1,14 +1,12 @@
 class CurrentEventsExplained::Articles
 
-  attr_accessor :title, :url, :author, :date, :twitter_handle
+  attr_accessor :title, :url, :author, :date_time, :twitter_handle
 
-  #@@all = []
+
 
   def initialize(title = nil, url = nil)
     @title = title
     @url = url
-    #@@all << self
-    #@@all << make_articles
   end
 
   def self.all
@@ -32,18 +30,15 @@ class CurrentEventsExplained::Articles
   end
 
   def author
-    #author ||= doc.xpath("//a[@class='c-byline__item']").text
-    @author ||= doc.xpath("//span[@class='c-byline__item']/a[1]").text
-      #best_dish ||= doc.xpath("//div[@class='c-4 nr nt']/ul[3]/li").text
+    @author ||= doc.xpath("//span[@class='c-byline__item']/a").text.split("@").first
   end
 
-  def date
-    @date ||= doc.xpath("//time[@class='c-byline__item']").text
+  def date_time
+    @date_time ||= doc.xpath("//time[@class='c-byline__item']").text.strip
   end
 
   def twitter_handle
     @twitter_handle ||= doc.xpath("//a[@class='c-byline__twitter-handle']").text
-    #<a class="c-byline__twitter-handle" href="http://www.twitter.com/AlexWardVox">@AlexWardVox</a>
   end
 
 end
