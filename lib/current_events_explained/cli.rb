@@ -28,15 +28,21 @@ class CurrentEventsExplained::CLI
         puts "Please enter a number that is either 1 or greater."
         explainer_list
       elsif input.to_i > 0
-        if article = CurrentEventsExplained::Articles.find(number.to_1)
-          article_details(article)
+        if articles = CurrentEventsExplained::Articles.find(input.to_i)
+          article_details(articles)
         end
       else
         exit
       end
     end
 
-    def article_details(article)
-      
+    def article_details(articles)
+      puts ""
+      puts "________________#{articles.title}________________"
+      puts "Written by: #{articles.author}"
+      puts "Author's Twitter Handle:  #{articles.twitter_handle}"
+      puts "Link:   #{articles.url}"
+
+      #puts "#{articles.intro}"
     end
 end
