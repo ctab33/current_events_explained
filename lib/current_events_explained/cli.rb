@@ -2,31 +2,36 @@ class CurrentEventsExplained::CLI
 
   def call
     explainer_list
-    user_prompt
-    user_done
+    #user_prompt
+    #user_done
   end
 
   def explainer_list
+    2.times {puts ""}
     puts "Choose from Vox's list of explainers."
-    # puts <<-DOC.gsub /^\s*/, ''
-    #   1. Trump’s new policy to tackle sky-high drug prices makes sense — sort of
-    #   2. The outrage over Gal Gadot’s $300,000 paycheck for Wonder Woman, explained
-    # DOC
+    puts ""
+    CurrentEventsExplained::Articles.all.each.with_index(1) do |articles, i|
+      puts "  #{i}. #{articles.title}"
+    end
+    2.times {puts ""}
+
   end
 
-  def user_prompt
-    puts "What explainer would you like to read? Please enter a number."
-    input = gets.strip
-    #Rest of code goes here. Could be case, loop, etc to show when user picks a number, it shows them article.
-    #Don't forget to include an exit strategy for user.
-    #Account for numbers that aren't listed.
-  end
+  # def user_prompt
+  #   while input != "exit"
+  #     puts "What explainer would you like to read? Please enter a number."
+  #     puts "If you're done, type in exit."
+  #     puts ""
+  #     input = gets.strip
+  #     if input == "explainers"
+  #       explainer_list
+  #     else
+  #       user_done
+  #     end
+  #   end
+  # end
 
-  def user_done
-    puts "Thanks for stopping by."
-  end
-
-
-
-
+  # def user_done
+  #   puts "Thanks for stopping by."
+  # end
 end

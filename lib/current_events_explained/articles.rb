@@ -20,42 +20,28 @@ class CurrentEventsExplained::Articles
   end
 
   #Scraping
-  def get_page
-      doc = Nokogiri::HTML(open("https://www.vox.com/explainers"))
-  end
-
-  def get_articles
-      self.get_page.css(".c-entry-box--compact__title")
-  end
-
-  # def self.scrape_explainer
-  #   self.get_articles.each do |article|
-  #     articles = Articles.new
-  #     articles.title = article.children[0].children.text
-  #     article.url = article.children[0].attribute("href").value
-  #   end
-  # end
-
   def self.scrape_explainer
-    get_articles.collect {|a| new(a.children[0].children.text, a.children[0].attribute("href").value)}
+    doc = Nokogiri::HTML(open("https://www.vox.com/explainers"))
+    get_articles = doc.search("h2.c-entry-box--compact__title")
+    get_articles.map {|a| new(a.children[0].children.text, a.children[0].attribute("href").value)}
   end
 
  #url, author, and twitter_handle
-  def doc
-    @doc ||= Nokogiri::HTML(open(self.url))
-  end
-
-  def author
-    @author ||= doc.xpath("//span[@class='c-byline__item']").text
-  end
-
-  def date
-    @date ||= doc.xpath("//time[@class='c-byline__item']").text
-  end
-
-  def twitter_handle
-    @twitter_handle ||= doc.xpath("//a[@class='c-byline__twitter-handle']").text
-    #<a class="c-byline__twitter-handle" href="http://www.twitter.com/AlexWardVox">@AlexWardVox</a>
-  end
+  # def doc
+  #   @doc ||= Nokogiri::HTML(open(self.url))
+  # end
+  #
+  # def author
+  #   @author ||= doc.xpath("//a[@class='c-byline__item']").text
+  # end
+  #
+  # def date
+  #   @date ||= doc.xpath("//time[@class='c-byline__item']").text
+  # end
+  #
+  # def twitter_handle
+  #   @twitter_handle ||= doc.xpath("//a[@class='c-byline__twitter-handle']").text
+  #   #<a class="c-byline__twitter-handle" href="http://www.twitter.com/AlexWardVox">@AlexWardVox</a>
+  # end
 
 end
