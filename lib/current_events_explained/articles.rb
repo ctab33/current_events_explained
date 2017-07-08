@@ -17,14 +17,14 @@ class CurrentEventsExplained::Articles
     self.all[number - 1]
   end
 
-  #Scraping
+
   def self.scrape_explainer
     doc = Nokogiri::HTML(open("https://www.vox.com/explainers"))
     get_articles = doc.search("h2.c-entry-box--compact__title")
     get_articles.map {|a| new(a.children[0].children.text, a.children[0].attribute("href").value)}
   end
 
- #url, author, and twitter_handle
+
   def doc
     @doc ||= Nokogiri::HTML(open(self.url))
   end
@@ -42,7 +42,7 @@ class CurrentEventsExplained::Articles
   end
 
   def intro
-    @intro ||= doc.xpath("//div[@class='c-entry-content']/p[1]").text 
+    @intro ||= doc.xpath("//div[@class='c-entry-content']/p[1]").text
   end
 
 end
