@@ -1,6 +1,6 @@
 class CurrentEventsExplained::Articles
 
-  attr_accessor :title, :url, :author, :date_time, :twitter_handle, :intro
+  attr_reader :title, :url, :author, :date_time, :twitter_handle, :intro
 
 
 
@@ -27,7 +27,6 @@ class CurrentEventsExplained::Articles
 
   def doc
     @doc ||= Nokogiri::HTML(open(self.url))
-
   end
 
   def author
