@@ -7,7 +7,7 @@ class CurrentEventsExplained::CLI
 
   def explainer_list
     2.times {puts ""}
-    puts "Choose from Vox's lastest list of explainers."
+    puts "Choose from Vox's list of first 10 explainers."
     puts ""
     CurrentEventsExplained::Articles.all[0, 10].each.with_index(1) do |articles, i|
       puts "  #{i}. #{articles.title}"
