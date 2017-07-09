@@ -3,7 +3,7 @@ class CurrentEventsExplained::Articles
   attr_reader :title, :url, :author, :date_time, :twitter_handle, :intro
 
 
-  def initialize(title = nil, url = nil)
+  def initialize(title, url)
     @title = title
     @url = url
   end
