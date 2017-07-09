@@ -7,9 +7,9 @@ class CurrentEventsExplained::CLI
 
   def explainer_list
     2.times {puts ""}
-    puts "Choose from Vox's list of explainers."
+    puts "Choose from Vox's lastest list of explainers."
     puts ""
-    CurrentEventsExplained::Articles.all.each.with_index(1) do |articles, i|
+    CurrentEventsExplained::Articles.all[1, 10].each.with_index(1) do |articles, i|
       puts "  #{i}. #{articles.title}"
     end
     2.times {puts ""}
@@ -20,8 +20,9 @@ class CurrentEventsExplained::CLI
     input = nil
     while input != "exit"
       puts ""
-      puts "Which explainer would you like more information on? Please enter a corresponding number."
       puts "To see the list of explainers, enter vox. If you're done browsing, type exit."
+      puts "Which explainer would you like more information on? Please enter a corresponding number."
+
       input = gets.strip.downcase
 
       if input.to_i > 0

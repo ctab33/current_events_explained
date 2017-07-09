@@ -3,15 +3,18 @@ class CurrentEventsExplained::Articles
   attr_reader :title, :url, :author, :date_time, :twitter_handle, :intro
 
 
-
   def initialize(title = nil, url = nil)
     @title = title
     @url = url
+
   end
 
   def self.all
       @@all ||= scrape_explainer
+      @@all.delete_at(7)
+      @@all
   end
+
 
   def self.find(number)
     self.all[number - 1]
@@ -23,7 +26,6 @@ class CurrentEventsExplained::Articles
     get_articles = doc.search("h2.c-entry-box--compact__title")
     get_articles.map {|a| new(a.children[0].children.text, a.children[0].attribute("href").value)}
   end
-
 
   def doc
     @doc ||= Nokogiri::HTML(open(self.url))
@@ -44,7 +46,7 @@ class CurrentEventsExplained::Articles
   end
 
   def intro
-    @intro ||= doc.xpath("//div[@class='c-entry-content']/p[1]").text
+    @intro ||= doc.xpath("//div[@class='c-entry-content']/p").text.slice(0..500)
   end
 
 end
