@@ -27,10 +27,13 @@ class CurrentEventsExplained::Articles
 
   def doc
     @doc ||= Nokogiri::HTML(open(self.url))
+
   end
 
   def author
-    @author ||= doc.xpath("//span[@class='c-byline__item']/a").text.split("@").first
+    #author ||= doc.xpath("//span[@class='c-byline__item']/a").text.split("@").first
+    @author ||= doc.children[1].children[1].children[21].attributes.values[1].text
+    #author ||= doc.css("span[class='c-byline__item'] a").text
   end
 
   def date_time
