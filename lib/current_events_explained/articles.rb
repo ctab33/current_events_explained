@@ -6,7 +6,6 @@ class CurrentEventsExplained::Articles
   def initialize(title = nil, url = nil)
     @title = title
     @url = url
-
   end
 
   def self.all
@@ -46,7 +45,7 @@ class CurrentEventsExplained::Articles
   end
 
   def intro
-    @intro ||= doc.xpath("//div[@class='c-entry-content']/p").text.slice(0..500)
+    @intro ||= doc.xpath("//div[@class='c-entry-content']/p").text.slice(0..500) << ' [...to read more, copy link to your browser]'
   end
 
 end
