@@ -31,11 +31,13 @@ class CurrentEventsExplained::CLI
         article_details(articles)
       elsif input == "vox"
         explainer_list
+
       else
         puts "Thanks for stopping by!"
       end
     end
   end
+
 
     def article_details(articles)
       puts "#{articles.title}"

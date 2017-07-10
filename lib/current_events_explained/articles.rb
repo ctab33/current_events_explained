@@ -10,8 +10,6 @@ class CurrentEventsExplained::Articles
 
   def self.all
       @@all ||= scrape_explainer
-      @@all.delete_at(7)
-      @@all
   end
 
 
@@ -23,7 +21,9 @@ class CurrentEventsExplained::Articles
   def self.scrape_explainer
     doc = Nokogiri::HTML(open("https://www.vox.com/explainers"))
     get_articles = doc.search("h2.c-entry-box--compact__title")
-    get_articles.map {|a| new(a.children[0].children.text, a.children[0].attribute("href").value)}
+    store_articles = get_articles.map {|a| new(a.children[0].children.text, a.children[0].attribute("href").value)}
+    store_articles.delete_at(7)
+    store_articles
   end
 
   def doc
