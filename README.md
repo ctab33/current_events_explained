@@ -1,6 +1,6 @@
 # CurrentEventsExplained
 
-The Current Events Explained Ruby Gem gives users a list of explainer from Vox.com via a CLI. Users can choose a numbered title to read brief information extracted from the articles.
+The Current Events Explained Ruby Gem gives users a list of the 10 most recent explainers from Vox.com via a CLI. Users can choose a numbered title to read brief information extracted from the articles.
 
 ## Installation
 
