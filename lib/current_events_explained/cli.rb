@@ -9,7 +9,7 @@ class CurrentEventsExplained::CLI
     2.times {puts ""}
     puts "Choose from Vox's list of 10 most recent explainers."
     puts ""
-    CurrentEventsExplained::Articles.all[0,10].each.with_index(1) do |articles, i|
+    CurrentEventsExplained::Articles.all[0..9].each.with_index(1) do |articles, i|
       puts "  #{i}. #{articles.title}"
     end
     2.times {puts ""}
