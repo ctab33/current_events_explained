@@ -1,6 +1,8 @@
 class CurrentEventsExplained::CLI
 
   def call
+    #call scrape_explainer here
+    CurrentEventsExplained::Scraper.scrape_explainer
     explainer_list
     user_prompt
   end
@@ -26,27 +28,29 @@ class CurrentEventsExplained::CLI
 
       input = gets.strip.downcase
 
-      if input.to_i > 0
-        articles = CurrentEventsExplained::Articles.find(input.to_i)
-        article_details(articles)
+      if input.to_i.between?(1, CurrentEventsExplained::Articles.all.size)
+        article = CurrentEventsExplained::Articles.find(input.to_i)
+        article.scrape_details
+        article_details(article)
       elsif input == "vox"
         explainer_list
-
-      else
+      elsif input == "exit"
         puts "Thanks for stopping by!"
+      else
+        puts "Invalid input. Please try another number."
       end
     end
   end
 
 
-    def article_details(articles)
-      puts "#{articles.title}"
-      puts "Written by: #{articles.author}"
-      puts "Author's Twitter handle (if provided):  #{articles.twitter_handle}"
-      puts "Date and time of publication: #{articles.date_time}"
+    def article_details(article)
+      puts "#{article.title}"
+      puts "Written by: #{article.author}"
+      puts "Author's Twitter handle (if provided):  #{article.twitter_handle}"
+      puts "Date and time of publication: #{article.date_time}"
       puts ""
-      puts "Link: #{articles.url}"
+      puts "Link: #{article.url}"
       puts ""
-      puts "Introduction: #{articles.intro}"
+      puts "Introduction: #{article.intro}"
     end
 end
