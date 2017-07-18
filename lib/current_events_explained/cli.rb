@@ -30,7 +30,7 @@ class CurrentEventsExplained::CLI
 
       if input.to_i.between?(1, CurrentEventsExplained::Articles.all.size)
         article = CurrentEventsExplained::Articles.find(input.to_i)
-        article.scrape_details
+        CurrentEventsExplained::Scraper.scrape_details(article)
         article_details(article)
       elsif input == "vox"
         explainer_list
