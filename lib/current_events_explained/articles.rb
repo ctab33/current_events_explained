@@ -1,7 +1,6 @@
 class CurrentEventsExplained::Articles
 
-  attr_accessor :title, :url, :author, :date_time, :twitter_handle, :intro
-
+attr_accessor :title, :url, :author, :date_time, :twitter_handle, :intro
 
  @@all = []
   def initialize(title, url)
