@@ -4,7 +4,6 @@ class CurrentEventsExplained::Scraper
     doc = Nokogiri::HTML(open("https://www.vox.com/explainers"))
     get_articles = doc.search("h2.c-entry-box--compact__title a[data-analytics-link='article']")
     get_articles.map {|a| CurrentEventsExplained::Articles.new(a.children[0].text, a.attribute("href").value)}
-
   end
 
   def self.scrape_details(article)
