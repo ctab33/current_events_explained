@@ -1,15 +1,13 @@
 class CurrentEventsExplained::Articles
 
-  attr_accessor :title, :url
+  attr_accessor :title, :url, :author, :date_time, :twitter_handle, :intro
+
 
  @@all = []
   def initialize(title, url)
     @title = title
     @url = url
-    #push new objects created into the class variable here
-    @@all < self
-    binding.pry
-
+    @@all << self
   end
 
   def self.all
@@ -22,5 +20,3 @@ class CurrentEventsExplained::Articles
 
 
 end
-
-#create a separate scraper class and move scrape_details and
